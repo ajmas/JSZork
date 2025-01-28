@@ -2,5 +2,5 @@
 *.gif
 *.doc
 *.docx
-*.html
-*.css
+# *.html
+# *.css
