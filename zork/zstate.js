@@ -1,5 +1,5 @@
 class GameState {
-    
+
     constructor()
     {
         // gameplay information
@@ -95,13 +95,10 @@ class GameState {
         {
             this.previousDirectObject = this.directObject;
         }
-        
+
         this.directObject = dummyObject;
         this.indirectObject = dummyObject;
         this.multipleObjectList.clear();
         this.ambiguousPhrase = "";
     }
-
-
-    
 }
