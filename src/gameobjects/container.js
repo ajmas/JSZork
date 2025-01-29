@@ -1,3 +1,5 @@
+import GameObject from './GameObject.js';
+
 class Container extends GameObject {
 
     constructor(name, loc)
@@ -19,7 +21,7 @@ class Container extends GameObject {
 
     outputInventory()
     {
-        
+
         if (this.isOpen() && this.inventory.size > 0)
         {
 
@@ -47,7 +49,7 @@ class Container extends GameObject {
                 else
                 {
                     outputDescription("\t" + item.capArticleName);
-                    
+
                 }
 
                 if (item.isContainer())
@@ -82,7 +84,7 @@ class Container extends GameObject {
             {
                 if (this.containerOpen)
                 {
-                    this.containerOpen = false; 
+                    this.containerOpen = false;
                     output("Closed.");
                 }
                 else
@@ -158,7 +160,7 @@ class Container extends GameObject {
                         for (let item of this.inventory)
                             output("The lid opens, revealing " + item.articleName + ".");
                     }
-                    
+
                     else
                         output("The lid opens.");
                 }
@@ -196,7 +198,7 @@ class Container extends GameObject {
                                 str += ",";
                             ++i;
                         }
-                        
+
                         str += ".";
 
                         output(str);
@@ -236,7 +238,7 @@ class Container extends GameObject {
             else
                 output("There's no more room.");
         }
-        
+
         else
         {
             output("The " + this.name + " isn't open.");
@@ -294,3 +296,5 @@ class Container extends GameObject {
         }
     }
 }
+
+export default Container;

@@ -25,7 +25,7 @@ function processRawInput(rawInput)
     return rawInput;
 }
 
-function getMissingInput()
+function getMissingInput(state)
 {
     document.getElementById("gameArea").innerText = "";
     console.clear();
@@ -52,19 +52,35 @@ function getMissingInput()
         state.completePlayerInput += " " + missingInput;
     }
 
-    
+
     // don't forget to swap this back!
     inputTextArea.removeEventListener("change", getMissingInput);
     inputTextArea.addEventListener("change", getPlayerInput);
 
     // Restart the input parser
 
-    parsePlayerInput();
+    parsePlayerInput(state);
 }
 
 
+function processUserData (state, rawInput, outputHandlers) {
+    // TODO
+    state.resetInput();
+
+    let processedInput = processRawInput(input);
+
+    if (isEmpty(processedInput)) {
+        return;
+    }
+
+    outputPreviousInput(rawInput);
+    state.completePlayerInput = processedInput;
+    parsePlayerInput(state);
+    outputMobile();
+}
+
 // Function called when the player submits input
-function getPlayerInput()
+function getPlayerInput(state)
 {
     input = "";
 
@@ -74,22 +90,20 @@ function getPlayerInput()
     state.resetInput();
 
     let rawInput = inputTextArea.value;
-    // console.log("Raw input: " + rawInput);
-    
+
     let processedInput = processRawInput(rawInput);
 
-    // console.log("Processed input: " + processedInput);
+    if (isEmpty(processedInput)) {
+        return;
+    }
 
-
-    if (isEmpty(processedInput)) return;
     outputPreviousInput(rawInput);
     state.completePlayerInput = processedInput;
-    parsePlayerInput();
+    parsePlayerInput(state);
     outputMobile();
-
 }
 
-function parsePlayerInput()
+function parsePlayerInput(state)
 {
     input = state.completePlayerInput;
 
@@ -99,7 +113,7 @@ function parsePlayerInput()
         return;
     }
 
-    
+
     if (!parseAction())
     {
         output("I can't tell what you're trying to do.");
@@ -112,7 +126,7 @@ function parsePlayerInput()
     // If the player is trying to indicate multiple objects,
     // the getMultipleObjects() method is called. If the input
     // can't be parsed, we exit here. If the input CAN be parsed
-    // but no objects are in the final list, 
+    // but no objects are in the final list,
     let multRE = /,|\sand\s|\sall\s|\sall$|^all$|everything|\sexcept\s|\sbut\s|treasure/i;
     if (multRE.test(input))
     {
@@ -149,7 +163,7 @@ function parsePlayerInput()
                 }
             }
 
-            if (!parseDirectObject())
+            if (!parseDirectObject(state))
             {
                 exitInput();
                 return;
@@ -160,7 +174,7 @@ function parsePlayerInput()
         case "INDIRECT":
         case "INDIRECT_INVERSE":
         {
-            if (!parseDirectObject())
+            if (!parseDirectObject(state))
             {
                 exitInput();
                 return;
@@ -176,7 +190,7 @@ function parsePlayerInput()
 
         case "SWITCH":
         {
-            if (!parseDirectObject())
+            if (!parseDirectObject(state))
             {
                 exitInput();
                 return;
@@ -194,7 +208,7 @@ function parsePlayerInput()
         {
             state.speakPhrase = input;
             input = "";
-        } 
+        }
         case "REFLEXIVE":
         case "EXIT":
         {
@@ -218,14 +232,12 @@ function parsePlayerInput()
         return;
     }
 
-    
+
     if (validateAction())
     {
-        updateGame();
-        exitInput();
+        updateGame(state);
+        exitInput(state);
     }
-    
-
 }
 
 
@@ -261,7 +273,7 @@ function getMultipleObjects()
     }
 
 
-    
+
     // console.log("Input in detectMultipleObjects(): " + input);
 
     let checkComma = input.match(/,/);
@@ -309,7 +321,7 @@ function getMultipleObjects()
 
         state.indirectObject = cObj;
         state.indirectObjectPhrase = cObj.name;
-        
+
     }
 
     // Player is selecting "all", etc.
@@ -325,7 +337,7 @@ function getMultipleObjects()
 
             state.multipleObjectList.delete("you");
         }
-        
+
         else if (state.playerAction === Action.PUT || state.playerAction === Action.DROP)
         {
             state.multipleObjectList.clear();
@@ -387,9 +399,9 @@ function getMultipleObjects()
                 if (!foundObject)
                     spl = spl.substring(spl.split(" ")[0].length).trim();
             }
-           
+
         }
-        
+
         removeUnwantedMultiples();
         return true;
     }
@@ -454,7 +466,7 @@ function parseAction()
 }
 
 
-function parseDirectObject()
+function parseDirectObject(state)
 {
 
     if (isEmpty(input))
@@ -491,7 +503,7 @@ function parseDirectObject()
 
             // check for ambiguity
 
-            if (ambiguityCheck(token))
+            if (ambiguityCheck(token, state))
                 return false;
 
             return true;
@@ -514,7 +526,7 @@ function parseDirectObject()
 
 }
 
-function ambiguityCheck(token)
+function ambiguityCheck(token, state)
 {
     let altTok = token + "_alt";
     if (currentObjectNames.includes(altTok))
@@ -541,8 +553,8 @@ function ambiguityCheck(token)
         output(ambigStr);
 
         inputTextArea.innerText = "";
-        inputTextArea.removeEventListener("change", getPlayerInput);
-        inputTextArea.addEventListener("change", ambiguityInterface);
+        inputTextArea.removeEventListener("change", () => getPlayerInput(state));
+        inputTextArea.addEventListener("change", () => ambiguityInterface(state));
 
         return true;
     }
@@ -550,7 +562,7 @@ function ambiguityCheck(token)
     return false;
 }
 
-function ambiguityInterface()
+function ambiguityInterface(state)
 {
     gameArea.innerText = "";
     let token = state.ambiguousPhrase;
@@ -562,14 +574,14 @@ function ambiguityInterface()
 
     state.completePlayerInput = state.completePlayerInput.replace(tokenRE, newToken);
 
-    inputTextArea.removeEventListener("change", ambiguityInterface);
-    inputTextArea.addEventListener("change", getPlayerInput);
+    inputTextArea.removeEventListener("change", () => ambiguityInterface(state));
+    inputTextArea.addEventListener("change", () => getPlayerInput(state));
 
-    parsePlayerInput();
+    parsePlayerInput(state);
 }
 
 
-function parseIndirectObject()
+function parseIndirectObject(state)
 {
     // console.log("parseIndirectObject phrase: " + input);
 
@@ -591,7 +603,7 @@ function parseIndirectObject()
             state.indirectObjectPhrase = token;
             input = input.substring(token.length).trim();
 
-            if (ambiguityCheck(token))
+            if (ambiguityCheck(token, state))
                 return false;
 
             return true;
@@ -615,11 +627,11 @@ function parseIndirectObject()
 }
 
 
-// Prints debug info 
-// Refreshes inventories 
-// Updates game flags 
-// Fills current object list 
-// Clears player input text area 
+// Prints debug info
+// Refreshes inventories
+// Updates game flags
+// Fills current object list
+// Clears player input text area
 function exitInput()
 {
     // printDebugInfo();
@@ -638,7 +650,7 @@ function preprocessInput()
     input = input.replace(/ +/g, " ");
 
     // Loud room check
-    if (loudRoomCheck(input)) 
+    if (loudRoomCheck(input))
     {
         return false;
     }
@@ -976,10 +988,10 @@ function removeSomeExtraWords()
 function removeUnwantedMultiples()
 {
     let names = [ "air", "altar", "attic table", "basket", "blue button", "boarded window", "broken mirror",
-    "brown button", "current", "door", 
+    "brown button", "current", "door",
     "engravings", "flood", "floor", "flow", "forest", "gas", "glow", "grating", "ground",
-    "green bubble", "kitchen table", 
-    "kitchen window", "machine", "mirror", "mountains", "pedestal", "quantity of water", "rainbow", "red button", 
+    "green bubble", "kitchen table",
+    "kitchen window", "machine", "mirror", "mountains", "pedestal", "quantity of water", "rainbow", "red button",
     "reservoir water", "river water", "sand", "sky", "song bird", "spirits", "stream water", "trap door",
     "white house", "wooden boards", "wooden door", "wooden railing", "yellow button", "you"];
 
@@ -1175,7 +1187,7 @@ function validateAction()
                         return false;
                     } // break;
                 }
-                
+
             }
 
             if (dirObj.isItem() && dirObj.location !== Location.PLAYER_INVENTORY)
@@ -1197,7 +1209,7 @@ function validateAction()
                         return false;
                     } // break;
                 }
-                
+
             }
         } break;
 

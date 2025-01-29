@@ -1,3 +1,5 @@
+import GameObject from './GameObject.js';
+
 class Surface extends GameObject {
 
     constructor(name, loc)
@@ -28,7 +30,7 @@ class Surface extends GameObject {
 
     outputInventory()
     {
-        
+
         if (this.inventory.size > 0)
         {
 
@@ -56,7 +58,7 @@ class Surface extends GameObject {
                 else
                 {
                     outputDescription("\t" + item.capArticleName);
-                    
+
                 }
 
                 if (item.isContainer())
@@ -96,3 +98,5 @@ class Surface extends GameObject {
         }
     }
 }
+
+export default Surface;

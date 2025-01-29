@@ -1,4 +1,6 @@
-function updateGame()
+import { worldMap } from './zsetup.js';
+
+function updateGame(state)
 {
 
     let currentRoom = worldMap.get(state.playerLocation);
@@ -99,7 +101,7 @@ function updateGame()
 
         case "RESTART":
         {
-            restart();            
+            restart();
             return;
 
         } // break;
@@ -159,10 +161,14 @@ function updateGame()
             else
             {
                 if (usingLocalStorage)
+                {
                     restoreFromLocalStorage("undoSave");
+                }
                 else
+                {
                     restoreFromGameMemory("undoSave");
-             
+                }
+
                 inputTextArea.value = "";
                 state.completePlayerInput = "undo";
                 outputPreviousInput(state.completePlayerInput);
@@ -180,7 +186,7 @@ function updateGame()
             {
                 updateDeath();
                 break;
-            } 
+            }
 
             darknessCheck();
 
@@ -212,28 +218,28 @@ function updateGame()
 
 }
 
-function outputMobile()
-{
-    zorkMobileOutputArea.innerHTML = "";
-    let mobMarkup = "";
+// function outputMobile()
+// {
+//     zorkMobileOutputArea.innerHTML = "";
+//     let mobMarkup = "";
 
-    if (gameArea.innerHTML === "" || worldMap.get(state.playerLocation).firstVisit)
-    {
-        mobMarkup += descriptionArea.innerHTML;
+//     if (gameArea.innerHTML === "" || worldMap.get(state.playerLocation).firstVisit)
+//     {
+//         mobMarkup += descriptionArea.innerHTML;
 
-        if (gameArea.innerHTML !== "")
-            mobMarkup += "<br>";
-    }
+//         if (gameArea.innerHTML !== "")
+//             mobMarkup += "<br>";
+//     }
 
-    mobMarkup += gameArea.innerHTML;
+//     mobMarkup += gameArea.innerHTML;
 
-    if (state.playerAction === Action.LOOK)
-    {
-        mobMarkup = descriptionArea.innerHTML;
-    }
+//     if (state.playerAction === Action.LOOK)
+//     {
+//         mobMarkup = descriptionArea.innerHTML;
+//     }
 
-    zorkMobileOutputArea.innerHTML = mobMarkup;
-}
+//     zorkMobileOutputArea.innerHTML = mobMarkup;
+// }
 
 
 function updateStandard()
@@ -375,7 +381,7 @@ function updateStandard()
                         playerDies();
                     }
                 }
-                
+
             }
         } break;
 
@@ -391,7 +397,7 @@ function updateStandard()
                     {
                         output("You are on your own feet again.");
                         state.playerInBoat = false;
-                            
+
                     }
                 }
 
@@ -456,7 +462,7 @@ function updateStandard()
                     output(ObjectStrings.CYCLOPS_FLEES);
                     clops.alive = false;
                     state.cyclopsGone = true;
-                    updateEvents();                        
+                    updateEvents();
                 }
 
                 else
@@ -684,7 +690,7 @@ function updateMultiple()
 
                             else
                                 line += "The water slips through your fingers.";
-                            
+
                         } break;
 
                         case "skeleton":
@@ -713,7 +719,7 @@ function updateMultiple()
 
                 else if (obj.location === Location.PLAYER_INVENTORY)
                 {
-                    line += "You're already carrying the " + obj.name + "!";    
+                    line += "You're already carrying the " + obj.name + "!";
                 }
 
                 // Object is an available item not in the player's inventory
@@ -780,7 +786,7 @@ function updateMultiple()
                 }
 
 
-                
+
 
                 output(line);
             }
@@ -791,12 +797,12 @@ function updateMultiple()
         {
             output("You can't use multiple objects with \"" + state.actionPhrase + "\".");
             return;
-            
+
         } // break;
     }
 
     let currentRoom = worldMap.get(state.playerLocation);
-    
+
     outputLocation(currentRoom.name);
 
     currentRoom.lookAround();
@@ -986,7 +992,7 @@ function updateDeath()
                 output(GameStrings.DEAD_CANNOT_ENTER);
                 return;
             }
-            
+
             if (currentRoom.exit(state.playerAction))
             {
                 let nextRoom = worldMap.get(state.playerLocation);
@@ -1011,7 +1017,7 @@ function updateDeath()
 
             }
 
-        } break; 
+        } break;
 
         default:
         {
@@ -1069,7 +1075,7 @@ function updateEvents()
     }
 
     // CYCLOPS STATUS
-    
+
     if (cyclops.unconscious)
     {
         state.cyclopsShutsTrapDoor = false;
@@ -1385,6 +1391,7 @@ function updateScore()
     outputScore(state.playerScore);
     outputTurns(state.turns);
 
+    return state;
 }
 
 
@@ -1441,7 +1448,7 @@ function breakEgg()
     brokenEgg.itemOpen = true;
 
     output(ObjectStrings.INIT_BROKEN_CANARY);
-    
+
 }
 
 // Sets playerInDarkness
@@ -1506,7 +1513,7 @@ function listInventory()
         }
 
         if (item.location === Location.PLAYER_INVENTORY && item.isContainer()
-            && (item.isOpen() || item.name === "glass bottle")) 
+            && (item.isOpen() || item.name === "glass bottle"))
         {
             if (item.inventory.size > 0)
             {
@@ -1584,12 +1591,12 @@ function playerDiesForReal()
 }
 
 
-function refreshInventories()
+function refreshInventories(state)
 {
 
     for (let cont of objectList.values())
     {
-    
+
         if (cont.inventoryID !== Location.NULL_INVENTORY)
         {
             cont.inventory.clear();
@@ -1620,6 +1627,7 @@ function refreshInventories()
     else
         psg.weightFail = "You can't get down there with what you're carrying.";
 
+    return state;
 }
 
 
@@ -1678,3 +1686,5 @@ function skeletonIsDisturbed()
     }
 
 }
+
+export { refreshInventories, updateGame }

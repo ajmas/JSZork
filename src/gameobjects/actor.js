@@ -1,3 +1,6 @@
+import { NumberConstants } from '../zconstants.js';
+import GameObject from './GameObject.js';
+
 class Actor extends GameObject {
 
     constructor(name, loc)
@@ -12,7 +15,7 @@ class Actor extends GameObject {
         this.cyclopsThirsty = false;
         this.disarmed = false;
         this.firstCombatTurn = true;
-        this.hitPoints = MAX_ENEMY_HIT_POINTS;
+        this.hitPoints = NumberConstants.MAX_ENEMY_HIT_POINTS;
         this.riverTurns = 0
         this.staggered = false;
         this.swordGlowLevel = 0;
@@ -328,7 +331,7 @@ class Actor extends GameObject {
         else
         {
             let saltAndPepper = [ "", ObjectStrings.CYCLOPS_WAIT_1, ObjectStrings.CYCLOPS_WAIT_2,
-                ObjectStrings.CYCLOPS_WAIT_3, ObjectStrings.CYCLOPS_WAIT_4, ObjectStrings.CYCLOPS_WAIT_5, 
+                ObjectStrings.CYCLOPS_WAIT_3, ObjectStrings.CYCLOPS_WAIT_4, ObjectStrings.CYCLOPS_WAIT_5,
                 ObjectStrings.CYCLOPS_WAIT_6, ObjectStrings.CYCLOPS_WAIT_7 ];
 
             if (this.cyclopsCycle > 0)
@@ -699,7 +702,7 @@ class Actor extends GameObject {
             if (state.playerLocation === enemies[i].location)
                 newGlowLevel = 2;
 
-            else 
+            else
             {
                 let enemyRoom = worldMap.get(enemies[i].location);
                 for (let psg of enemyRoom.exits.values())
@@ -747,9 +750,9 @@ class Actor extends GameObject {
 
             } break;
 
-            default: {} break;    
+            default: {} break;
         }
-        
+
         this.swordGlowLevel = newGlowLevel;
     }
 
@@ -988,7 +991,7 @@ class Actor extends GameObject {
             {
                 let phrase = getRandom(severeBlows.length);
                 output(severeBlows[phrase]);
-            }         
+            }
         }
 
         else if (severeCutoff <= dieRoll && dieRoll < staggerCutoff)
@@ -1357,7 +1360,7 @@ class Actor extends GameObject {
             {
                 let phrase = getRandom(severeBlows.length);
                 output(severeBlows[phrase]);
-            }         
+            }
         }
 
         else if (severeCutoff <= dieRoll && dieRoll < staggerCutoff)
@@ -1464,7 +1467,7 @@ class Actor extends GameObject {
 
              - Miss: 40%
              - Light blow: 25%
-             - Severe blow: 10% 
+             - Severe blow: 10%
              - Stagger: 10%
              - Disarm: 5%
              - Knockout: 5%
@@ -1516,7 +1519,7 @@ class Actor extends GameObject {
                     output(ObjectStrings.TROLL_RECOVERS_STAGGER);
                     this.staggered = false;
                 }
-                
+
                 return;
             }
 
@@ -1591,7 +1594,7 @@ class Actor extends GameObject {
                 let phrase = getRandom(disarmingBlows.length);
                 output(disarmingBlows[phrase]);
                 state.indirectObject.location = state.playerLocation;
-                
+
                 for (let g of currentObjects.values())
                 {
                     if (g.isWeapon && !g.name === "sceptre" && g.location === Location.PLAYER_INVENTORY)
@@ -1671,9 +1674,11 @@ class Actor extends GameObject {
                     relocatePlayerNoClear(COAL_MINE[dieRoll]);
                 }
             }
-            
+
         }
     }
 
     isAlive() { return this.alive; }
 }
+
+export default Actor;

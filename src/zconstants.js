@@ -1,134 +1,136 @@
-// Gameplay values
-const CARRY_WEIGHT_LIMIT = 100;
-const DEATH_POINTS = 10;
-const LANTERN_LIFESPAN = 500;
-const MAX_PLAYER_DEATHS = 3;
-const MAX_DARKNESS_TURNS = 2;
-const MAX_HIT_POINTS = 10;
-const MATCH_LIFESPAN = 2;
-const MATCHES_IN_BOOK = 20;
-const RESERVOIR_DRAIN_TURNS = 8;
-const SHAFT_BASKET_POINTS = 13;
-const SPIRIT_CEREMONY_LENGTH = 5;
-const THIEF_OPENS_EGG = 5;
-const WINNING_SCORE = 350;
+const NumberConstants = {
+    // Gameplay values
+    CARRY_WEIGHT_LIMIT: 100,
+    DEATH_POINTS: 10,
+    LANTERN_LIFESPAN: 500,
+    MAX_PLAYER_DEATHS: 3,
+    MAX_DARKNESS_TURNS: 2,
+    MAX_HIT_POINTS: 10,
+    MATCH_LIFESPAN: 2,
+    MATCHES_IN_BOOK: 20,
+    RESERVOIR_DRAIN_TURNS: 8,
+    SHAFT_BASKET_POINTS: 13,
+    SPIRIT_CEREMONY_LENGTH: 5,
+    THIEF_OPENS_EGG: 5,
+    WINNING_SCORE: 350,
 
-const MAX_INPUT_LENGTH = 50;
-const MAX_TURNS = 2000;
+    MAX_INPUT_LENGTH: 50,
+    MAX_TURNS: 2000,
 
-// from Actor object
-const CYCLOPS_CYCLE_MAX = 8;
-const MAX_ENEMY_HIT_POINTS = 10;
-const THIEF_ENCOUNTER_PERCENT = 2;
-const SONGBIRD_CHIRP_PERCENT = 15;
+    // from Actor object
+    CYCLOPS_CYCLE_MAX: 8,
+    MAX_ENEMY_HIT_POINTS: 10,
+    THIEF_ENCOUNTER_PERCENT: 2,
+    SONGBIRD_CHIRP_PERCENT: 15,
 
-// Score values for acquiring a treasure and putting it in the case
-const PLATINUM_VALUE = 10;
-const PLATINUM_TROPHY_VALUE = 5;
-const BAUBLE_VALUE = 1;
-const BAUBLE_TROPHY_VALUE = 1;
-const CHALICE_VALUE = 10;
-const CHALICE_TROPHY_VALUE = 5;
-const COFFIN_VALUE = 10;
-const COFFIN_TROPHY_VALUE = 15;
-const COINS_VALUE = 10;
-const COINS_TROPHY_VALUE = 5;
-const CANARY_VALUE = 6;
-const CANARY_TROPHY_VALUE = 4;
-const DIAMOND_VALUE = 10;
-const DIAMOND_TROPHY_VALUE = 10;
-const EGG_VALUE = 5;
-const EGG_TROPHY_VALUE = 5;
-const EMERALD_VALUE = 5;
-const EMERALD_TROPHY_VALUE = 10;
-const JADE_VALUE = 5;
-const JADE_TROPHY_VALUE = 5;
-const PAINTING_VALUE = 4;
-const PAINTING_TROPHY_VALUE = 6;
-const POT_OF_GOLD_VALUE = 10;
-const POT_OF_GOLD_TROPHY_VALUE = 10;
-const SAPPHIRE_VALUE = 5;
-const SAPPHIRE_TROPHY_VALUE = 5;
-const SCARAB_VALUE = 5;
-const SCARAB_TROPHY_VALUE = 5;
-const SCEPTRE_VALUE = 4;
-const SCEPTRE_TROPHY_VALUE = 6;
-const CRYSTAL_SKULL_VALUE = 10;
-const CRYSTAL_SKULL_TROPHY_VALUE = 10;
-const TORCH_VALUE = 14;
-const TORCH_TROPHY_VALUE = 6;
-const TRIDENT_VALUE = 4;
-const TRIDENT_TROPHY_VALUE = 11;
-const TRUNK_OF_JEWELS_VALUE = 15;
-const TRUNK_OF_JEWELS_TROPHY_VALUE = 5;
+    // Score values for acquiring a treasure and putting it in the case
+    PLATINUM_VALUE: 10,
+    PLATINUM_TROPHY_VALUE: 5,
+    BAUBLE_VALUE: 1,
+    BAUBLE_TROPHY_VALUE: 1,
+    CHALICE_VALUE: 10,
+    CHALICE_TROPHY_VALUE: 5,
+    COFFIN_VALUE: 10,
+    COFFIN_TROPHY_VALUE: 15,
+    COINS_VALUE: 10,
+    COINS_TROPHY_VALUE: 5,
+    CANARY_VALUE: 6,
+    CANARY_TROPHY_VALUE: 4,
+    DIAMOND_VALUE: 10,
+    DIAMOND_TROPHY_VALUE: 10,
+    EGG_VALUE: 5,
+    EGG_TROPHY_VALUE: 5,
+    EMERALD_VALUE: 5,
+    EMERALD_TROPHY_VALUE: 10,
+    JADE_VALUE: 5,
+    JADE_TROPHY_VALUE: 5,
+    PAINTING_VALUE: 4,
+    PAINTING_TROPHY_VALUE: 6,
+    POT_OF_GOLD_VALUE: 10,
+    POT_OF_GOLD_TROPHY_VALUE: 10,
+    SAPPHIRE_VALUE: 5,
+    SAPPHIRE_TROPHY_VALUE: 5,
+    SCARAB_VALUE: 5,
+    SCARAB_TROPHY_VALUE: 5,
+    SCEPTRE_VALUE: 4,
+    SCEPTRE_TROPHY_VALUE: 6,
+    CRYSTAL_SKULL_VALUE: 10,
+    CRYSTAL_SKULL_TROPHY_VALUE: 10,
+    TORCH_VALUE: 14,
+    TORCH_TROPHY_VALUE: 6,
+    TRIDENT_VALUE: 4,
+    TRIDENT_TROPHY_VALUE: 11,
+    TRUNK_OF_JEWELS_VALUE: 15,
+    TRUNK_OF_JEWELS_TROPHY_VALUE: 5,
 
-const BROKEN_EGG_TROPHY_VALUE = 2;
-const BROKEN_CANARY_TROPHY_VALUE = 1;
+    BROKEN_EGG_TROPHY_VALUE: 2,
+    BROKEN_CANARY_TROPHY_VALUE: 1,
 
-// Score values for reaching specific rooms
-const KITCHEN_VALUE = 10;
-const CELLAR_VALUE = 25;
-const EAST_WEST_VALUE = 5;
-const TREASURE_VALUE = 25;
+    // Score values for reaching specific rooms
+    KITCHEN_VALUE: 10,
+    CELLAR_VALUE: 25,
+    EAST_WEST_VALUE: 5,
+    TREASURE_VALUE: 25,
 
-// Item weights
-const BAR_WEIGHT = 20;
-const BAUBLE_WEIGHT = 0;
-const CHALICE_WEIGHT = 10;
-const COFFIN_WEIGHT = 55;
-const COINS_WEIGHT = 15;
-const CANARY_WEIGHT = 4;
-const DIAMOND_WEIGHT = 6;
-const EGG_WEIGHT = 5;
-const EMERALD_WEIGHT = 6;
-const JADE_WEIGHT = 10;
-const PAINTING_WEIGHT = 15;
-const POT_OF_GOLD_WEIGHT = 15;
-const SAPPHIRE_WEIGHT = 10;
-const SCARAB_WEIGHT = 8;
-const SCEPTRE_WEIGHT = 3;
-const SKULL_WEIGHT = 15;
-const TORCH_WEIGHT = 20;
-const TRIDENT_WEIGHT = 20;
-const TRUNK_WEIGHT = 35;
+    // Item weights
+    BAR_WEIGHT: 20,
+    BAUBLE_WEIGHT: 0,
+    CHALICE_WEIGHT: 10,
+    COFFIN_WEIGHT: 55,
+    COINS_WEIGHT: 15,
+    CANARY_WEIGHT: 4,
+    DIAMOND_WEIGHT: 6,
+    EGG_WEIGHT: 5,
+    EMERALD_WEIGHT: 6,
+    JADE_WEIGHT: 10,
+    PAINTING_WEIGHT: 15,
+    POT_OF_GOLD_WEIGHT: 15,
+    SAPPHIRE_WEIGHT: 10,
+    SCARAB_WEIGHT: 8,
+    SCEPTRE_WEIGHT: 3,
+    SKULL_WEIGHT: 15,
+    TORCH_WEIGHT: 20,
+    TRIDENT_WEIGHT: 20,
+    TRUNK_WEIGHT: 35,
 
-const ANCIENT_MAP_WEIGHT = 2;
-const AXE_WEIGHT = 25;
-const BELL_WEIGHT = 10;
-const BLACK_BOOK_WEIGHT = 10;
-const BOAT_LABEL_WEIGHT = 2;
-const BOTTLE_WEIGHT = 5;
-const BROKEN_CANARY_WEIGHT = 4;
-const BROKEN_EGG_WEIGHT = 5;
-const BUOY_WEIGHT = 10;
-const CANDLES_WEIGHT = 10;
-const COAL_WEIGHT = 20;
-const BOAT_WEIGHT = 20;
-const GARLIC_WEIGHT = 4;
-const GUIDEBOOK_WEIGHT = 2;
-const GUNK_WEIGHT = 6;
-const KNIFE_WEIGHT = 10;
-const LANTERN_WEIGHT = 15;
-const LEAVES_WEIGHT = 25;
-const LEAFLET_WEIGHT = 2;
-const LUNCH_WEIGHT = 5;
-const MATCHBOOK_WEIGHT = 2;
-const NEST_WEIGHT = 5;
-const PUMP_WEIGHT = 8;
-const ROPE_WEIGHT = 10;
-const RUSTY_KNIFE_WEIGHT = 20;
-const SACK_WEIGHT = 9;
-const SCREWDRIVER_WEIGHT = 2;
-const SHOVEL_WEIGHT = 15;
-const SKELETON_KEY_WEIGHT = 10;
-const STILETTO_WEIGHT = 10;
-const SWORD_WEIGHT = 30;
-const TIMBER_WEIGHT = 50;
-const TUBE_WEIGHT = 5;
-const USELESS_LANTERN_WEIGHT = 20;
-const VITREOUS_SLAG_WEIGHT = 10;
-const WRENCH_WEIGHT = 10;
-const ZORK_MANUAL_WEIGHT = 2;
+    ANCIENT_MAP_WEIGHT: 2,
+    AXE_WEIGHT: 25,
+    BELL_WEIGHT: 10,
+    BLACK_BOOK_WEIGHT: 10,
+    BOAT_LABEL_WEIGHT: 2,
+    BOTTLE_WEIGHT: 5,
+    BROKEN_CANARY_WEIGHT: 4,
+    BROKEN_EGG_WEIGHT: 5,
+    BUOY_WEIGHT: 10,
+    CANDLES_WEIGHT: 10,
+    COAL_WEIGHT: 20,
+    BOAT_WEIGHT: 20,
+    GARLIC_WEIGHT: 4,
+    GUIDEBOOK_WEIGHT: 2,
+    GUNK_WEIGHT: 6,
+    KNIFE_WEIGHT: 10,
+    LANTERN_WEIGHT: 15,
+    LEAVES_WEIGHT: 25,
+    LEAFLET_WEIGHT: 2,
+    LUNCH_WEIGHT: 5,
+    MATCHBOOK_WEIGHT: 2,
+    NEST_WEIGHT: 5,
+    PUMP_WEIGHT: 8,
+    ROPE_WEIGHT: 10,
+    RUSTY_KNIFE_WEIGHT: 20,
+    SACK_WEIGHT: 9,
+    SCREWDRIVER_WEIGHT: 2,
+    SHOVEL_WEIGHT: 15,
+    SKELETON_KEY_WEIGHT: 10,
+    STILETTO_WEIGHT: 10,
+    SWORD_WEIGHT: 30,
+    TIMBER_WEIGHT: 50,
+    TUBE_WEIGHT: 5,
+    USELESS_LANTERN_WEIGHT: 20,
+    VITREOUS_SLAG_WEIGHT: 10,
+    WRENCH_WEIGHT: 10,
+    ZORK_MANUAL_WEIGHT: 2
+};
 
 const Action = {
 
@@ -175,7 +177,7 @@ const Action = {
     UNDO: "UNDO",
     VERBOSE: "VERBOSE",
     WAIT: "WAIT",
-  
+
     ACTIVATE: "ACTIVATE",
     ANSWER: "ANSWER",
     BLOW: "BLOW",
@@ -675,7 +677,7 @@ const Location = {
 Object.freeze(Location);
 
 const GAME_WORDS = [
-    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", 
+    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
     "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
     "u", "v", "w", "x", "y", "z", "ne", "nw", "se", "sw",
     "again", "all", "an", "and", "around", "at", "attach", "attack", "author",
@@ -738,3 +740,8 @@ const OVERWORLD = [
 const FOREST = [
     "FOREST_WEST", "FOREST_EAST", "FOREST_SOUTH", "FOREST_NORTHEAST"
 ];
+
+export {
+    NumberConstants, actions, prepositions, Action, ActionType, Location,
+    GAME_WORDS, THIEF_LOCATIONS, COAL_MINE, OVERWORLD, FOREST
+};

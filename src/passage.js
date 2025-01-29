@@ -18,3 +18,4 @@ class Passage {
     isOpen() { return this.passageOpen; }
 }
 
+export default Passage;

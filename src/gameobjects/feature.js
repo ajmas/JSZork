@@ -1,3 +1,5 @@
+import GameObject from './GameObject.js';
+
 class Feature extends GameObject {
 
     constructor(name, loc)
@@ -220,7 +222,7 @@ class Feature extends GameObject {
                         }
 
                     }
-                } 
+                }
 
                 else
                     output("Digging with " + state.indirectObject.articleName + " is silly.");
@@ -567,9 +569,9 @@ class Feature extends GameObject {
                             output("The water spills onto the " + state.indirectObject.name + " and dissipates.");
                             state.bottleFilled = false;
                         } break;
-                    } 
+                    }
                 }
-                
+
 
             } break;
 
@@ -750,7 +752,7 @@ class Feature extends GameObject {
 
                 else
                     output("The water slips through your fingers.");
-                
+
             } break;
 
             case "skeleton":
@@ -965,6 +967,6 @@ class Feature extends GameObject {
             } break;
         }
     }
-
-    
 }
+
+export default Feature;

@@ -2,5 +2,6 @@
 *.gif
 *.doc
 *.docx
+node_modules
 # *.html
 # *.css

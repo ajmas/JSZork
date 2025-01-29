@@ -1,5 +1,8 @@
+import { Location, Action, ActionType, NumberConstants } from "./zconstants.js";
+import { dummyObject } from "./zsetup.js";
+
 class GameState {
-    
+
     constructor()
     {
         // gameplay information
@@ -14,7 +17,7 @@ class GameState {
         this.playerCarryWeight = 0;
         this.playerDead = false;
         this.playerDeaths = 0;
-        this.playerHitPoints = MAX_HIT_POINTS;
+        this.playerHitPoints = NumberConstants.MAX_HIT_POINTS;
         this.playerLocation = Location.NULL_LOCATION;
         this.playerPreviousLocation = Location.NULL_LOCATION;
         this.playerScore = 0;
@@ -48,7 +51,7 @@ class GameState {
         this.damWaterLow = false;
         this.waterFalling = false;
         this.waterRising = false;
-        this.damWaterStage = RESERVOIR_DRAIN_TURNS;
+        this.damWaterStage = NumberConstants.RESERVOIR_DRAIN_TURNS;
         this.floodStage = 0;
         this.gameWon = false;
         this.gratingOpened = false;
@@ -80,7 +83,9 @@ class GameState {
     resetInput()
     {
         if (this.completePlayerInput !== "again" && this.completePlayerInput !== "g")
+        {
             this.playerPreviousInput = this.completePlayerInput;
+        }
 
         this.completePlayerInput = "";
         this.actionPhrase = "";
@@ -95,13 +100,12 @@ class GameState {
         {
             this.previousDirectObject = this.directObject;
         }
-        
+
         this.directObject = dummyObject;
         this.indirectObject = dummyObject;
         this.multipleObjectList.clear();
         this.ambiguousPhrase = "";
     }
-
-
-    
 }
+
+export default GameState;

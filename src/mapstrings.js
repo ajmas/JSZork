@@ -127,7 +127,7 @@ const MapStrings = {
 
     DESC_EGYPTIAN_ROOM: "This is a room which looks like an Egyptian tomb. There is an "
         + "ascending staircase to the west.",
-        
+
     DESC_DOME_ROOM: "You are at the periphery of a large dome, which forms the ceiling of another "
         + "room below. Protecting you from a precipitous drop is a wooden railing which circles the dome.",
 
@@ -425,3 +425,5 @@ const MapStrings = {
 
 
 Object.freeze(MapStrings);
+
+export default MapStrings;

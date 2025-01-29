@@ -1,3 +1,5 @@
+import GameObject from './GameObject.js';
+
 class Item extends GameObject {
 
     constructor(name, loc)
@@ -233,7 +235,7 @@ class Item extends GameObject {
                 {
                     output("The " + this.name + " catches fire and is consumed.");
                 }
-                
+
                 this.location = Location.NULL_LOCATION;
 
             } break;
@@ -292,11 +294,11 @@ class Item extends GameObject {
         {
             output(this.closeString);
             return;
-        } 
+        }
 
         if (this.itemOpen)
         {
-            this.itemOpen = false; 
+            this.itemOpen = false;
             output("Closed.");
         }
         else
@@ -382,7 +384,7 @@ class Item extends GameObject {
 
             else if (this.name === "bird's nest")
             {
-                
+
                 if (egg.location == Location.INSIDE_BIRDS_NEST)
                 {
                     output("The nest falls to the ground, and the egg spills out of it, seriously damaged.");
@@ -431,7 +433,7 @@ class Item extends GameObject {
                     let dieRoll = Math.floor(Math.random() * coalMineRooms.length);
                     relocatePlayer(coalMineRooms[dieRoll]);
                 }
-                
+
             } break;
 
             case "lunch":
@@ -475,7 +477,7 @@ class Item extends GameObject {
             output("The " + this.name + " is closed.");
         }
 
-    
+
     }
 
     extinguish()
@@ -493,7 +495,7 @@ class Item extends GameObject {
                     darknessCheck();
                     if (state.playerInDarkness)
                         output("It is now pitch black.");
-                    
+
                 }
 
                 else
@@ -622,7 +624,7 @@ class Item extends GameObject {
                     {
                         let newRoom = worldMap.get(state.playerLocation);
                         outputLocation(newRoom.name);
-                        newRoom.lookAround(); 
+                        newRoom.lookAround();
                     }
 
                 }
@@ -655,7 +657,7 @@ class Item extends GameObject {
                         darknessCheck();
                         rm.lookAround();
                     }
-                    
+
                     this.examineString = "The lamp is on.";
                 }
 
@@ -817,7 +819,7 @@ class Item extends GameObject {
 
                     ++i;
                 }
-                
+
                 str += ".";
 
                 output(str);
@@ -863,7 +865,7 @@ class Item extends GameObject {
 
             else
                 output("There's no more room.");
-        
+
         }
         else
         {
@@ -995,7 +997,7 @@ class Item extends GameObject {
 
             default:
             {
-                super.ring(); 
+                super.ring();
             } break;
         }
     }
@@ -1017,7 +1019,7 @@ class Item extends GameObject {
 
         if (this.name === "pile of leaves" && !state.leafPileMoved)
         {
-            revealGrating();       
+            revealGrating();
         }
 
         if (this.name === "rope" && state.ropeRailTied)
@@ -1037,7 +1039,7 @@ class Item extends GameObject {
             output(ObjectStrings.SLAG_CRUMBLE);
             this.location = Location.NULL_LOCATION;
             return;
-        } 
+        }
 
         if ((state.playerCarryWeight + this.weight) >= CARRY_WEIGHT_LIMIT)
         {
@@ -1313,7 +1315,7 @@ class Item extends GameObject {
             } break;
         }
 
-        
+
 
     }
 
@@ -1495,3 +1497,5 @@ class Item extends GameObject {
     isOpen() { return this.itemOpen; }
     tick() { --this.lifespan; }
 }
+
+export default Item;

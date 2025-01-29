@@ -123,7 +123,7 @@ const GameStrings = {
         + "The Great Underground Empire, a legendary self-contained and self-maintaining universe created in the late 1970's by some "
         + "computer geniuses at MIT. If used and maintained in accordance with normal operating practices for small universes, this pale "
         + "imitation of ZORK I will provide many months of troubled and bug-ridden operation, including bizarre logical errors and "
-        + "countless thrown exceptions.",   
+        + "countless thrown exceptions.",
     OVERBURDENED: "You can't carry any more.",
     PASSAGE_OVERBURDENED: "You are carrying too much.",
     PLAYER_DIES: "\n   ****  You have died  ****\n\n"
@@ -204,3 +204,5 @@ const GameStrings = {
 }
 
 Object.freeze(GameStrings);
+
+export default GameStrings;

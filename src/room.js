@@ -1,5 +1,9 @@
+import { Action } from './zconstants.js';
+import MapStrings from './mapstrings.js';
+import GameStrings from './gamestrings.js';
+
 class Room {
-    
+
     constructor(name, desc, loc)
     {
         this.name = name;
@@ -28,7 +32,7 @@ class Room {
     setLight() { this.dark = false; }
     isDark() { return this.dark; }
 
-    exit()
+    exit(state)
     {
         // The room has an exit in the player's attempted direction
         if (this.exits.has(state.playerAction))
@@ -117,7 +121,7 @@ class Room {
         return false;
     }
 
-    getDescription()
+    getDescription(state)
     {
         if (state.playerDead)
         {
@@ -305,7 +309,7 @@ class Room {
 
             g.outputInventory();
 
-            
+
         }
 
     }
@@ -320,3 +324,5 @@ class Room {
     }
 
 }
+
+export default Room;

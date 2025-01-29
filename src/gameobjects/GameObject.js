@@ -6,8 +6,6 @@ const noEffect = [noEffect1, noEffect2, noEffect3];
 
 class GameObject {
 
-
-    
     constructor(name, loc)
     {
         this.name = name;
@@ -68,7 +66,7 @@ class GameObject {
         this.ringString = "How, exactly, can you ring that?";
         this.searchString = "You find nothing unusual.";
         this.shakeString = "Shaken.";
-        this.smellString = "It smells like " + this.articleName + ".";    
+        this.smellString = "It smells like " + this.articleName + ".";
         this.takeString = "";
         this.talkString = "You can't talk to the " + this.name + "!";
         this.touchString = "";
@@ -123,7 +121,7 @@ class GameObject {
         }
     }
 
-    
+
 
     answer() { output(this.answerString); }
     attack() { output(this.attackString); }
@@ -187,7 +185,7 @@ class GameObject {
     climb() { output(this.climbString); }
     close() { output(this.closeString); }
     count() { output(this.countString); }
-    cross() { output(this.crossString); }    
+    cross() { output(this.crossString); }
     cut()
     {
         let word = "";
@@ -308,20 +306,20 @@ class GameObject {
         {
             if (this.isItem())
                 output(this.enterItemString);
-            else 
+            else
                 output(this.enterString);
         }
     }
     examine() { output(this.examineString); }
-    extinguish() { output(this.extinguishString); }   
+    extinguish() { output(this.extinguishString); }
     fill() { output(this.fillString); }
-    follow() { output(this.followString); }  
+    follow() { output(this.followString); }
     give()
     {
         output("You can't give " + state.indirectObject.articleName + " to "
             + state.directObject.articleName + "!");
     }
-    greet() { output(this.helloString); }  
+    greet() { output(this.helloString); }
     inflate() { output(this.inflateString); }
     kick() { output(this.kickString + this.randPhrase()); }
     knock() { output(this.knockString); }
@@ -330,7 +328,7 @@ class GameObject {
     listen() { output(this.listenString); }
     lock() { output("You can't lock that."); }
     lookIn()
-    {   
+    {
         if (this.isContainer())
         {
             this.examine();
@@ -338,7 +336,7 @@ class GameObject {
 
         else
             output(this.lookInString);
-        
+
     }
     lookOut() { output(this.lookOutString); }
     lookUnder() { output(this.lookUnderString); }
@@ -348,7 +346,7 @@ class GameObject {
     open() { output(this.openString); }
     pour() { output(this.pourString); }
     pull() { output(this.pullString); }
-    push() { output(this.pushString + this.randPhrase()); }    
+    push() { output(this.pushString + this.randPhrase()); }
     put() { output(this.putString); }
     raise() { output(this.raiseString + this.randPhrase()); }
     read() { output(this.readString); }
@@ -357,7 +355,7 @@ class GameObject {
     ring() { output(this.ringString); }
     search() { output(this.searchString); }
     shake() { output(this.shakeString); }
-    smell() { output(this.smellString); }   
+    smell() { output(this.smellString); }
     take()
     {
         if (this.takeString === "")
@@ -365,7 +363,7 @@ class GameObject {
         else
             output(this.takeString);
     }
-    talk() { output(this.talkString); }   
+    talk() { output(this.talkString); }
     throwObject()
     {
         if (!this.isItem())
@@ -378,7 +376,7 @@ class GameObject {
         {
             default:
             {
-                
+
             } break;
         }
     }
@@ -446,3 +444,5 @@ class GameObject {
         }
     }
 }
+
+export default GameObject;

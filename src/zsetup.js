@@ -1,3 +1,16 @@
+import Passage from './passage.js';
+import ObjectStrings from './objectstrings.js';
+import { Location, actions, Action, NumberConstants } from './zconstants.js';
+import GameObject from './gameobjects/GameObject.js';
+import Item from './gameobjects/item.js';
+import Room from './room.js';
+import MapStrings from './mapstrings.js';
+import GameStrings from './gamestrings.js';
+import Feature from './gameobjects/feature.js';
+import Surface from './gameobjects/surface.js';
+import Container from './gameobjects/container.js';
+import Actor from './gameobjects/actor.js';
+
 // Data structure declarations
 const worldMap = new Map();
 let objectList = new Map();
@@ -13,8 +26,9 @@ const actionPhrases = [];
 const objectNameMap = new Map();
 const ambiguousMap = new Map();
 
-for (let phrase of actions.keys())
+for (let phrase of actions.keys()) {
     actionPhrases.push(phrase);
+}
 
 actionPhrases.sort(function(a, b) {
     return (a.length > b.length)? -1 : 0;
@@ -233,7 +247,7 @@ kitchen.addExit(Action.OUT, house_behind_kitchen);
 kitchen.addExit(Action.WEST, kitchen_livingroom);
 kitchen.addExit(Action.UP, kitchen_attic);
 kitchen.addFailMessage(Action.DOWN, "Only Santa Claus climbs down chimneys.");
-kitchen.discoverValue = KITCHEN_VALUE;
+kitchen.discoverValue = NumberConstants.KITCHEN_VALUE;
 
 const attic = new Room("Attic", MapStrings.DESC_ATTIC, Location.ATTIC);
 attic.addExit(Action.DOWN, kitchen_attic);
@@ -331,7 +345,7 @@ cellar.addExit(Action.NORTH, cellar_troll);
 cellar.addExit(Action.SOUTH, cellar_eastchasm);
 cellar.addExit(Action.UP, cellar_livingroom);
 cellar.addFailMessage(Action.WEST, "You try to ascend the ramp, but it is impossible, and you slide back down.");
-cellar.discoverValue = CELLAR_VALUE;
+cellar.discoverValue = NumberConstants.CELLAR_VALUE;
 
 
 const eastOfChasm = new Room("East of Chasm", MapStrings.DESC_EAST_OF_CHASM, Location.EAST_OF_CHASM);
@@ -360,7 +374,7 @@ eastWestPassage.addExit(Action.WEST, troll_eastwest);
 eastWestPassage.addExit(Action.NORTH, eastwest_chasm);
 eastWestPassage.addExit(Action.DOWN, eastwest_chasm);
 eastWestPassage.addExit(Action.EAST, eastwest_round);
-eastWestPassage.discoverValue = EAST_WEST_VALUE;
+eastWestPassage.discoverValue = NumberConstants.EAST_WEST_VALUE;
 
 const roundRoom = new Room("Round Room", MapStrings.DESC_ROUND_ROOM, Location.ROUND_ROOM);
 roundRoom.addExit(Action.WEST, eastwest_round);
@@ -665,7 +679,7 @@ strangePassage.addExit(Action.EAST, strange_living_room);
 
 const treasureRoom = new Room("Treasure Room", MapStrings.DESC_TREASURE_ROOM, Location.TREASURE_ROOM);
 treasureRoom.addExit(Action.DOWN, cyclops_treasure);
-treasureRoom.discoverValue = TREASURE_VALUE;
+treasureRoom.discoverValue = NumberConstants.TREASURE_VALUE;
 
 const maze1 = new Room("Maze", MapStrings.DESC_MAZE_1, Location.MAZE_1);
 maze1.addExit(Action.EAST, troll_maze);
@@ -761,7 +775,7 @@ const mazeDeadEndCenter = new Room("Dead End", MapStrings.DESC_DEAD_END_MAZE_CEN
 mazeDeadEndCenter.addExit(Action.WEST, maze5_dead_end);
 
 const mazeDeadEndSouthEast = new Room("Dead End", MapStrings.DESC_DEAD_END_MAZE_SOUTHEAST, Location.DEAD_END_MAZE_SOUTHEAST);
-mazeDeadEndSouthEast.addExit(Action.NORTH, maze8_dead_end); 
+mazeDeadEndSouthEast.addExit(Action.NORTH, maze8_dead_end);
 
 const mazeDeadEndSouthWest = new Room("Dead End", MapStrings.DESC_DEAD_END_MAZE_SOUTHWEST, Location.DEAD_END_MAZE_SOUTHWEST);
 mazeDeadEndSouthWest.addExit(Action.SOUTH, maze12_dead_end);
@@ -769,7 +783,7 @@ mazeDeadEndSouthWest.addExit(Action.SOUTH, maze12_dead_end);
 // Dark rooms
 attic.setDark(); cellar.setDark(); eastOfChasm.setDark(); gallery.setDark(); studio.setDark(); eastWestPassage.setDark();
 roundRoom.setDark(); narrowPassage.setDark(); mirrorRoomSouth.setDark(); windingPassage.setDark(); caveSouth.setDark();
-entranceToHades.setDark(); landOfTheDead.setDark(); engravingsCave.setDark(); domeRoom.setDark(); torchRoom.setDark(); 
+entranceToHades.setDark(); landOfTheDead.setDark(); engravingsCave.setDark(); domeRoom.setDark(); torchRoom.setDark();
 temple.setDark(); egyptianRoom.setDark(); altarRoom.setDark(); loudRoom.setDark(); dampCave.setDark(); northSouthPassage.setDark();
 chasm.setDark(); deepCanyon.setDark(); damLobby.setDark(); maintenanceRoom.setDark(); atlantisRoom.setDark(); caveNorth.setDark();
 twistingPassage.setDark(); mirrorRoomNorth.setDark(); coldPassage.setDark(); slideRoom.setDark(); mineEntrance.setDark();
@@ -958,40 +972,40 @@ let bar = new Item("platinum bar", Location.LOUD_ROOM);
 bar.altNames.add("bar");
 bar.altNames.add("platinum");
 bar.presenceString = ObjectStrings.PLATINUM_BAR;
-bar.acquireValue = PLATINUM_VALUE;
-bar.trophyCaseValue = PLATINUM_TROPHY_VALUE;
-bar.weight = BAR_WEIGHT;
+bar.acquireValue= NumberConstants.PLATINUM_VALUE;
+bar.trophyCaseValue= NumberConstants.PLATINUM_TROPHY_VALUE;
+bar.weight = NumberConstants.BAR_WEIGHT;
 
 let bauble = new Item("brass bauble", Location.NULL_LOCATION);
 bauble.altNames.add("brass");
 bauble.altNames.add("bauble");
-bauble.acquireValue = BAUBLE_VALUE;
-bauble.trophyCaseValue = BAUBLE_TROPHY_VALUE;
-bauble.weight = BAUBLE_WEIGHT;
+bauble.acquireValue= NumberConstants.BAUBLE_VALUE;
+bauble.trophyCaseValue= NumberConstants.BAUBLE_TROPHY_VALUE;
+bauble.weight = NumberConstants.BAUBLE_WEIGHT;
 
 let chalice = new Item("silver chalice", Location.TREASURE_ROOM);
 chalice.altNames.add("silver");
 chalice.altNames.add("chalice");
-chalice.acquireValue = CHALICE_VALUE;
-chalice.trophyCaseValue = CHALICE_TROPHY_VALUE;
-chalice.weight = CHALICE_WEIGHT;
+chalice.acquireValue= NumberConstants.CHALICE_VALUE;
+chalice.trophyCaseValue= NumberConstants.CHALICE_TROPHY_VALUE;
+chalice.weight = NumberConstants.CHALICE_WEIGHT;
 
 let coffin = new Item("gold coffin", Location.EGYPTIAN_ROOM);
 coffin.altNames.add("coffin");
 coffin.presenceString = ObjectStrings.COFFIN;
 coffin.inventoryID = Location.INSIDE_COFFIN;
-coffin.acquireValue = COFFIN_VALUE;
-coffin.trophyCaseValue = COFFIN_TROPHY_VALUE;
-coffin.weight = COFFIN_WEIGHT;
+coffin.acquireValue= NumberConstants.COFFIN_VALUE;
+coffin.trophyCaseValue= NumberConstants.COFFIN_TROPHY_VALUE;
+coffin.weight = NumberConstants.COFFIN_WEIGHT;
 coffin.capacity = 35;
 
 let coins = new Item("bag of coins", Location.MAZE_5);
 coins.altNames.add("bag");
 coins.altNames.add("coins");
 coins.presenceString = ObjectStrings.INIT_COINS;
-coins.acquireValue = COINS_VALUE;
-coins.trophyCaseValue = COINS_TROPHY_VALUE;
-coins.weight = COINS_WEIGHT;
+coins.acquireValue= NumberConstants.COINS_VALUE;
+coins.trophyCaseValue= NumberConstants.COINS_TROPHY_VALUE;
+coins.weight = NumberConstants.COINS_WEIGHT;
 coins.plural = true;
 
 let canary = new Item("golden clockwork canary", Location.NULL_LOCATION);
@@ -1002,110 +1016,110 @@ canary.altNames.add("clockwork");
 canary.altNames.add("canary");
 canary.initialPresenceString = ObjectStrings.INIT_GOLDEN_CANARY;
 canary.examineString = ObjectStrings.EXAMINE_GOLDEN_CANARY;
-canary.acquireValue = CANARY_VALUE;
-canary.trophyCaseValue = CANARY_TROPHY_VALUE;
-canary.weight = CANARY_WEIGHT;
+canary.acquireValue= NumberConstants.CANARY_VALUE;
+canary.trophyCaseValue= NumberConstants.CANARY_TROPHY_VALUE;
+canary.weight = NumberConstants.CANARY_WEIGHT;
 
 let diamond = new Item("huge diamond", Location.NULL_LOCATION);
 diamond.altNames.add("diamond");
 diamond.presenceString = ObjectStrings.DIAMOND;
-diamond.acquireValue = DIAMOND_VALUE;
-diamond.trophyCaseValue = DIAMOND_TROPHY_VALUE;
-diamond.weight = DIAMOND_WEIGHT;
+diamond.acquireValue= NumberConstants.DIAMOND_VALUE;
+diamond.trophyCaseValue= NumberConstants.DIAMOND_TROPHY_VALUE;
+diamond.weight = NumberConstants.DIAMOND_WEIGHT;
 
 let egg = new Item("jewel-encrusted egg", Location.INSIDE_BIRDS_NEST);
 egg.altNames.add("egg");
 egg.initialPresenceString = ObjectStrings.INIT_EGG;
-egg.acquireValue = EGG_VALUE;
-egg.trophyCaseValue = EGG_TROPHY_VALUE;
-egg.weight = EGG_WEIGHT;
+egg.acquireValue= NumberConstants.EGG_VALUE;
+egg.trophyCaseValue= NumberConstants.EGG_TROPHY_VALUE;
+egg.weight = NumberConstants.EGG_WEIGHT;
 egg.inventoryID = Location.INSIDE_EGG;
 egg.capacity = 6;
 
 let emerald = new Item("large emerald", Location.INSIDE_BUOY);
 emerald.altNames.add("emerald");
-emerald.acquireValue = EMERALD_VALUE;
-emerald.trophyCaseValue = EMERALD_TROPHY_VALUE;
-emerald.weight = EMERALD_WEIGHT;
+emerald.acquireValue= NumberConstants.EMERALD_VALUE;
+emerald.trophyCaseValue= NumberConstants.EMERALD_TROPHY_VALUE;
+emerald.weight = NumberConstants.EMERALD_WEIGHT;
 
 let jade = new Item("jade figurine", Location.BAT_ROOM);
 jade.altNames.add("jade");
 jade.altNames.add("figurine");
 jade.presenceString = ObjectStrings.JADE;
-jade.acquireValue = JADE_VALUE;
-jade.trophyCaseValue = JADE_TROPHY_VALUE;
-jade.weight = JADE_WEIGHT;
+jade.acquireValue= NumberConstants.JADE_VALUE;
+jade.trophyCaseValue= NumberConstants.JADE_TROPHY_VALUE;
+jade.weight = NumberConstants.JADE_WEIGHT;
 
 let painting = new Item("painting", Location.GALLERY);
 painting.initialPresenceString = ObjectStrings.INIT_PAINTING;
 painting.presenceString = ObjectStrings.PAINTING;
-painting.acquireValue = PAINTING_VALUE;
-painting.trophyCaseValue = PAINTING_TROPHY_VALUE;
-painting.weight = PAINTING_WEIGHT;
+painting.acquireValue= NumberConstants.PAINTING_VALUE;
+painting.trophyCaseValue= NumberConstants.PAINTING_TROPHY_VALUE;
+painting.weight = NumberConstants.PAINTING_WEIGHT;
 
 let pot = new Item("pot of gold", Location.NULL_LOCATION);
 pot.altNames.add("pot");
 pot.altNames.add("gold");
 pot.initialPresenceString = ObjectStrings.INIT_POT_OF_GOLD;
-pot.acquireValue = POT_OF_GOLD_VALUE;
-pot.trophyCaseValue = POT_OF_GOLD_TROPHY_VALUE;
-pot.weight = POT_OF_GOLD_WEIGHT;
+pot.acquireValue= NumberConstants.POT_OF_GOLD_VALUE;
+pot.trophyCaseValue= NumberConstants.POT_OF_GOLD_TROPHY_VALUE;
+pot.weight = NumberConstants.POT_OF_GOLD_WEIGHT;
 
 let sapphire = new Item("sapphire-encrusted bracelet", Location.GAS_ROOM);
 sapphire.altNames.add("sapphire");
 sapphire.altNames.add("bracelet");
 sapphire.altNames.add("sapphire bracelet");
-sapphire.acquireValue = SAPPHIRE_VALUE;
-sapphire.trophyCaseValue = SAPPHIRE_TROPHY_VALUE;
-sapphire.weight = SAPPHIRE_WEIGHT;
+sapphire.acquireValue= NumberConstants.SAPPHIRE_VALUE;
+sapphire.trophyCaseValue= NumberConstants.SAPPHIRE_TROPHY_VALUE;
+sapphire.weight = NumberConstants.SAPPHIRE_WEIGHT;
 
 let scarab = new Item("beautiful jeweled scarab", Location.NULL_LOCATION);
 scarab.altNames.add("jeweled scarab");
 scarab.altNames.add("scarab");
-scarab.acquireValue = SCARAB_VALUE;
-scarab.trophyCaseValue = SCARAB_TROPHY_VALUE;
-scarab.weight = SCARAB_WEIGHT;
+scarab.acquireValue= NumberConstants.SCARAB_VALUE;
+scarab.trophyCaseValue= NumberConstants.SCARAB_TROPHY_VALUE;
+scarab.weight = NumberConstants.SCARAB_WEIGHT;
 
 let sceptre = new Item("sceptre", Location.INSIDE_COFFIN);
 sceptre.altNames.add("scepter");
 sceptre.initialPresenceString = ObjectStrings.INIT_SCEPTRE;
 sceptre.presenceString = ObjectStrings.SCEPTRE;
 sceptre.waveString = ObjectStrings.SCEPTRE_WAVE;
-sceptre.acquireValue = SCEPTRE_VALUE;
-sceptre.trophyCaseValue = SCEPTRE_TROPHY_VALUE;
-sceptre.weight = SCEPTRE_WEIGHT;
+sceptre.acquireValue= NumberConstants.SCEPTRE_VALUE;
+sceptre.trophyCaseValue= NumberConstants.SCEPTRE_TROPHY_VALUE;
+sceptre.weight = NumberConstants.SCEPTRE_WEIGHT;
 
 let skull = new Item("crystal skull", Location.LAND_OF_THE_DEAD);
 skull.altNames.add("skull");
 skull.altNames.add("crystal");
 skull.initialPresenceString = ObjectStrings.INIT_SKULL;
-skull.acquireValue = CRYSTAL_SKULL_VALUE;
-skull.trophyCaseValue = CRYSTAL_SKULL_TROPHY_VALUE;
-skull.weight = SKULL_WEIGHT;
+skull.acquireValue= NumberConstants.CRYSTAL_SKULL_VALUE;
+skull.trophyCaseValue= NumberConstants.CRYSTAL_SKULL_TROPHY_VALUE;
+skull.weight = NumberConstants.SKULL_WEIGHT;
 
 let torch = new Item("torch", Location.TORCH_ROOM);
 torch.altNames.add("ivory");
 torch.altNames.add("ivory torch");
 torch.initialPresenceString = ObjectStrings.INIT_TORCH;
 torch.activated = true;
-torch.acquireValue = TORCH_VALUE;
-torch.trophyCaseValue = TORCH_TROPHY_VALUE;
-torch.weight = TORCH_WEIGHT;
+torch.acquireValue= NumberConstants.TORCH_VALUE;
+torch.trophyCaseValue= NumberConstants.TORCH_TROPHY_VALUE;
+torch.weight = NumberConstants.TORCH_WEIGHT;
 
 let trident = new Item("crystal trident", Location.ATLANTIS_ROOM);
 trident.altNames.add("trident");
 trident.altNames.add("crystal");
 trident.initialPresenceString = ObjectStrings.INIT_TRIDENT;
-trident.acquireValue = TRIDENT_VALUE;
-trident.trophyCaseValue = TRIDENT_TROPHY_VALUE;
-trident.weight = TRIDENT_WEIGHT;
+trident.acquireValue= NumberConstants.TRIDENT_VALUE;
+trident.trophyCaseValue= NumberConstants.TRIDENT_TROPHY_VALUE;
+trident.weight = NumberConstants.TRIDENT_WEIGHT;
 
 let trunk = new Item("trunk of jewels", Location.RESERVOIR_EMPTY);
 trunk.altNames.add("trunk");
 trunk.altNames.add("jewels");
-trunk.acquireValue = TRUNK_OF_JEWELS_VALUE;
-trunk.trophyCaseValue = TRUNK_OF_JEWELS_TROPHY_VALUE;
-trunk.weight = TRUNK_WEIGHT;
+trunk.acquireValue= NumberConstants.TRUNK_OF_JEWELS_VALUE;
+trunk.trophyCaseValue= NumberConstants.TRUNK_OF_JEWELS_TROPHY_VALUE;
+trunk.weight = NumberConstants.TRUNK_WEIGHT;
 
 
 
@@ -1113,7 +1127,7 @@ trunk.weight = TRUNK_WEIGHT;
 
 let ancientMap = new Item("ancient map", Location.NULL_LOCATION);
 ancientMap.altNames.add("map");
-ancientMap.weight = ANCIENT_MAP_WEIGHT;
+ancientMap.weight = NumberConstants.ANCIENT_MAP_WEIGHT;
 ancientMap.initialPresenceString = ObjectStrings.INIT_ANCIENT_MAP;
 ancientMap.readString = ObjectStrings.ANCIENT_MAP;
 ancientMap.examineString = ObjectStrings.ANCIENT_MAP;
@@ -1121,28 +1135,28 @@ ancientMap.examineString = ObjectStrings.ANCIENT_MAP;
 let axe = new Item("bloody axe", Location.TROLL_INVENTORY);
 axe.altNames.add("axe");
 axe.altNames.add("ax");
-axe.weight = AXE_WEIGHT;
+axe.weight = NumberConstants.AXE_WEIGHT;
 
 let bell = new Item("brass bell", Location.TEMPLE);
 bell.altNames.add("bell");
 bell.ringString = "Ding, dong.";
-bell.weight = BELL_WEIGHT;
+bell.weight = NumberConstants.BELL_WEIGHT;
 
 let blackBook = new Item("black book", Location.ON_ALTAR);
 blackBook.altNames.add("book");
 blackBook.initialPresenceString = ObjectStrings.INIT_BLACK_BOOK;
-blackBook.weight = BLACK_BOOK_WEIGHT;
+blackBook.weight = NumberConstants.BLACK_BOOK_WEIGHT;
 
 let boatLabel = new Item("tan label", Location.NULL_LOCATION);
 boatLabel.altNames.add("label");
 boatLabel.readString = GameStrings.BOAT_LABEL_TEXT;
-boatLabel.weight = BOAT_LABEL_WEIGHT;
+boatLabel.weight = NumberConstants.BOAT_LABEL_WEIGHT;
 
 let bottle = new Item("glass bottle", Location.ON_KITCHEN_TABLE);
 bottle.altNames.add("bottle");
 bottle.altNames.add("glass");
 bottle.initialPresenceString = ObjectStrings.INIT_BOTTLE;
-bottle.weight = BOTTLE_WEIGHT;
+bottle.weight = NumberConstants.BOTTLE_WEIGHT;
 
 let brokenCanary = new Item("broken clockwork canary", Location.NULL_LOCATION);
 brokenCanary.altNames.add("broken canary");
@@ -1151,8 +1165,8 @@ brokenCanary.altNames.add("broken clockwork");
 brokenCanary.altNames.add("clockwork");
 brokenCanary.initialPresenceString = ObjectStrings.INIT_BROKEN_CANARY;
 brokenCanary.examineString = ObjectStrings.EXAMINE_BROKEN_CANARY;
-brokenCanary.trophyCaseValue = BROKEN_CANARY_TROPHY_VALUE;
-brokenCanary.weight = CANARY_WEIGHT;
+brokenCanary.trophyCaseValue= NumberConstants.BROKEN_CANARY_TROPHY_VALUE;
+brokenCanary.weight = NumberConstants.CANARY_WEIGHT;
 
 let brokenEgg = new Item("broken jewel-encrusted egg", Location.NULL_LOCATION);
 brokenEgg.presenceString = "There is a somewhat ruined egg here.";
@@ -1160,14 +1174,14 @@ brokenEgg.altNames.add("broken egg");
 brokenEgg.altNames.add("jewel-encrusted egg");
 brokenEgg.altNames.add("egg");
 brokenEgg.inventoryID = Location.INSIDE_BROKEN_EGG;
-brokenEgg.trophyCaseValue = BROKEN_EGG_TROPHY_VALUE;
-brokenEgg.weight = EGG_WEIGHT;
+brokenEgg.trophyCaseValue= NumberConstants.BROKEN_EGG_TROPHY_VALUE;
+brokenEgg.weight = NumberConstants.EGG_WEIGHT;
 brokenEgg.capacity = 6;
 
 let buoy = new Item("red buoy", Location.FRIGID_RIVER_4);
 buoy.altNames.add("buoy");
 buoy.inventoryID = Location.INSIDE_BUOY;
-buoy.weight = BUOY_WEIGHT;
+buoy.weight = NumberConstants.BUOY_WEIGHT;
 buoy.capacity = 20;
 buoy.initialPresenceString = ObjectStrings.INIT_BUOY;
 buoy.examineString = "You notice something funny about the feel of the buoy.";
@@ -1177,7 +1191,7 @@ candles.altNames.add("candles");
 candles.altNames.add("candle");
 candles.altNames.add("pair");
 candles.initialPresenceString = ObjectStrings.INIT_CANDLES;
-candles.weight = CANDLES_WEIGHT;
+candles.weight = NumberConstants.CANDLES_WEIGHT;
 candles.activated = true;
 candles.plural = true;
 
@@ -1187,7 +1201,7 @@ coal.altNames.add("pile");
 coal.altNames.add("coal pile");
 coal.altNames.add("pile of coal");
 coal.altNames.add("small pile");
-coal.weight = COAL_WEIGHT;
+coal.weight = NumberConstants.COAL_WEIGHT;
 
 let deflatedBoat = new Item("pile of plastic", Location.DAM_BASE);
 deflatedBoat.altNames.add("boat");
@@ -1195,28 +1209,28 @@ deflatedBoat.altNames.add("raft");
 deflatedBoat.altNames.add("pile");
 deflatedBoat.altNames.add("plastic");
 deflatedBoat.presenceString = ObjectStrings.INIT_BOAT;
-deflatedBoat.weight = BOAT_WEIGHT;
+deflatedBoat.weight = NumberConstants.BOAT_WEIGHT;
 
 let garlic = new Item("clove of garlic", Location.INSIDE_SACK);
 garlic.altNames.add("clove");
 garlic.altNames.add("garlic");
-garlic.weight = GARLIC_WEIGHT;
+garlic.weight = NumberConstants.GARLIC_WEIGHT;
 
 let guideBook = new Item("guidebook", Location.DAM_LOBBY);
 guideBook.altNames.add("book");
 guideBook.initialPresenceString = ObjectStrings.INIT_GUIDEBOOK;
-guideBook.weight = GUIDEBOOK_WEIGHT;
+guideBook.weight = NumberConstants.GUIDEBOOK_WEIGHT;
 
 let gunk = new Item("viscous material", Location.INSIDE_TUBE);
 gunk.altNames.add("gunk");
 gunk.altNames.add("material");
-gunk.weight = GUNK_WEIGHT;
+gunk.weight = NumberConstants.GUNK_WEIGHT;
 
 let inflatedBoat = new Item("magic boat", Location.NULL_LOCATION);
 inflatedBoat.altNames.add("boat");
 inflatedBoat.altNames.add("raft");
 inflatedBoat.inventoryID = Location.INSIDE_BOAT;
-inflatedBoat.weight = BOAT_WEIGHT;
+inflatedBoat.weight = NumberConstants.BOAT_WEIGHT;
 inflatedBoat.capacity = 100;
 inflatedBoat.itemOpen = true;
 
@@ -1224,21 +1238,21 @@ let knife = new Item("nasty knife", Location.ATTIC);
 knife.altNames.add("knife");
 knife.altNames.add("nasty");
 knife.initialPresenceString = ObjectStrings.INIT_NASTY_KNIFE;
-knife.weight = KNIFE_WEIGHT;
+knife.weight = NumberConstants.KNIFE_WEIGHT;
 
 let lantern = new Item("brass lantern", Location.LIVING_ROOM);
 lantern.initialPresenceString = ObjectStrings.INIT_LANTERN;
 lantern.altNames.add("lamp");
 lantern.altNames.add("lantern");
 lantern.altNames.add("brass lamp");
-lantern.lifespan = LANTERN_LIFESPAN;
-lantern.weight = LANTERN_WEIGHT;
+lantern.lifespan= NumberConstants.LANTERN_LIFESPAN;
+lantern.weight = NumberConstants.LANTERN_WEIGHT;
 
 let nest = new Item("bird's nest", Location.UP_TREE);
 nest.altNames.add("nest");
 nest.initialPresenceString = ObjectStrings.INIT_NEST;
 nest.inventoryID = Location.INSIDE_BIRDS_NEST;
-nest.weight = NEST_WEIGHT;
+nest.weight = NumberConstants.NEST_WEIGHT;
 nest.itemOpen = true;
 nest.capacity = 20;
 
@@ -1248,42 +1262,42 @@ leafPile.altNames.add("leaves");
 leafPile.countString = "There are 69,105 leaves here.";
 leafPile.initialPresenceString =  ObjectStrings.LEAF_PILE;
 leafPile.presenceString =  ObjectStrings.LEAF_PILE;
-leafPile.weight = LEAVES_WEIGHT;
+leafPile.weight = NumberConstants.LEAVES_WEIGHT;
 
 let leaflet = new Item("leaflet", Location.INSIDE_MAILBOX);
 leaflet.readString = GameStrings.LEAFLET_TEXT;
-leaflet.weight = LEAFLET_WEIGHT;
+leaflet.weight = NumberConstants.LEAFLET_WEIGHT;
 
 let lunch = new Item("lunch", Location.INSIDE_SACK);
 lunch.altNames.add("peppers");
 lunch.altNames.add("hot peppers");
-lunch.weight = LUNCH_WEIGHT;
+lunch.weight = NumberConstants.LUNCH_WEIGHT;
 
 let matchbook = new Item("matchbook", Location.DAM_LOBBY);
 matchbook.altNames.add("matches");
 matchbook.altNames.add("match");
 matchbook.presenceString = ObjectStrings.INIT_MATCHBOOK;
-matchbook.lifespan = MATCH_LIFESPAN;
-matchbook.weight = MATCHBOOK_WEIGHT;
+matchbook.lifespan= NumberConstants.MATCH_LIFESPAN;
+matchbook.weight = NumberConstants.MATCHBOOK_WEIGHT;
 
 let pump = new Item("hand-held air pump", Location.RESERVOIR_NORTH);
 pump.altNames.add("air pump");
 pump.altNames.add("pump");
-pump.weight = PUMP_WEIGHT;
+pump.weight = NumberConstants.PUMP_WEIGHT;
 
 let puncturedBoat = new Item("punctured boat", Location.NULL_LOCATION);
 puncturedBoat.altNames.add("boat");
 puncturedBoat.altNames.add("ruined boat");
-puncturedBoat.weight = BOAT_WEIGHT;
+puncturedBoat.weight = NumberConstants.BOAT_WEIGHT;
 
 let rope = new Item("rope", Location.ATTIC);
 rope.initialPresenceString = ObjectStrings.INIT_ROPE;
-rope.weight = ROPE_WEIGHT;
+rope.weight = NumberConstants.ROPE_WEIGHT;
 
 let ruinedPainting = new Item("ruined painting", Location.NULL_LOCATION);
 ruinedPainting.initialPresenceString = "There is a worthless piece of canvas here.";
 ruinedPainting.presenceString = "There is a worthless piece of canvas here.";
-ruinedPainting.weight = PAINTING_WEIGHT;
+ruinedPainting.weight = NumberConstants.PAINTING_WEIGHT;
 ruinedPainting.altNames.add("painting");
 ruinedPainting.altNames.add("canvas");
 ruinedPainting.altNames.add("worthless canvas");
@@ -1294,7 +1308,7 @@ let rustyKnife = new Item("rusty knife", Location.MAZE_5);
 rustyKnife.altNames.add("knife");
 rustyKnife.altNames.add("rusty");
 rustyKnife.initialPresenceString = ObjectStrings.INIT_RUSTY_KNIFE;
-rustyKnife.weight = RUSTY_KNIFE_WEIGHT;
+rustyKnife.weight = NumberConstants.RUSTY_KNIFE_WEIGHT;
 
 let sack = new Item("brown sack", Location.ON_KITCHEN_TABLE);
 sack.altNames.add("sack");
@@ -1302,44 +1316,44 @@ sack.altNames.add("bag");
 sack.altNames.add("brown bag");
 sack.initialPresenceString = ObjectStrings.INIT_SACK;
 sack.inventoryID = Location.INSIDE_SACK;
-sack.weight = SACK_WEIGHT;
+sack.weight = NumberConstants.SACK_WEIGHT;
 sack.capacity = 9;
 
 let screwdriver = new Item("screwdriver", Location.MAINTENANCE_ROOM);
 screwdriver.altNames.add("driver");
-screwdriver.weight = SCREWDRIVER_WEIGHT;
+screwdriver.weight = NumberConstants.SCREWDRIVER_WEIGHT;
 
 let shovel = new Item("shovel", Location.SANDY_BEACH);
-shovel.weight = SHOVEL_WEIGHT;
+shovel.weight = NumberConstants.SHOVEL_WEIGHT;
 
 let skeletonKey = new Item("skeleton key", Location.MAZE_5);
 skeletonKey.altNames.add("key");
-skeletonKey.weight = SKELETON_KEY_WEIGHT;
+skeletonKey.weight = NumberConstants.SKELETON_KEY_WEIGHT;
 
 let stiletto = new Item("stiletto", Location.THIEF_INVENTORY);
-stiletto.weight = STILETTO_WEIGHT;
+stiletto.weight = NumberConstants.STILETTO_WEIGHT;
 
 let studioPaper = new Item("ZORK owner's manual", Location.STUDIO);
 studioPaper.altNames.add("paper");
 studioPaper.altNames.add("manual");
 studioPaper.readString = GameStrings.NATE_MANUAL_TEXT;
 studioPaper.initialPresenceString = ObjectStrings.INIT_ZORK_MANUAL;
-studioPaper.weight = ZORK_MANUAL_WEIGHT;
+studioPaper.weight = NumberConstants.ZORK_MANUAL_WEIGHT;
 
 let sword = new Item("elvish sword", Location.LIVING_ROOM);
 sword.initialPresenceString = ObjectStrings.INIT_SWORD;
 sword.altNames.add("sword");
-sword.weight = SWORD_WEIGHT;
+sword.weight = NumberConstants.SWORD_WEIGHT;
 
 let timber = new Item("broken timber", Location.TIMBER_ROOM);
 timber.altNames.add("timber");
-timber.weight = TIMBER_WEIGHT;
+timber.weight = NumberConstants.TIMBER_WEIGHT;
 
 let tube = new Item("tube", Location.MAINTENANCE_ROOM);
 tube.presenceString = ObjectStrings.TUBE;
 tube.examineString = ObjectStrings.DESC_TUBE;
 tube.inventoryID = Location.INSIDE_TUBE;
-tube.weight = TUBE_WEIGHT;
+tube.weight = NumberConstants.TUBE_WEIGHT;
 tube.capacity = 7;
 
 let uselessLantern = new Item("useless lantern", Location.MAZE_5);
@@ -1348,10 +1362,10 @@ uselessLantern.altNames.add("lamp");
 uselessLantern.altNames.add("useless");
 uselessLantern.altNames.add("useless lamp");
 uselessLantern.initialPresenceString = ObjectStrings.INIT_USELESS;
-uselessLantern.weight = USELESS_LANTERN_WEIGHT;
+uselessLantern.weight = NumberConstants.USELESS_LANTERN_WEIGHT;
 
 let wrench = new Item("wrench", Location.MAINTENANCE_ROOM);
-wrench.weight = WRENCH_WEIGHT;
+wrench.weight = NumberConstants.WRENCH_WEIGHT;
 
 
 // Features, containers and surfaces
@@ -1874,10 +1888,7 @@ function createObjectNameMap()
 
 createObjectNameMap();
 
-
-
-
-function fillDictionary()
+function fillDictionary(dictionary)
 {
     for (let i = 0; i < GAME_WORDS.length; ++i)
     {
@@ -1920,5 +1931,10 @@ function fillDictionary()
             dictionary.add(words[i]);
     }
 
-
+    return dictionary;
 }
+
+export {
+    dummyObject, ambiguousMap, currentObjects, currentObjectNames,
+    objectNameMap, fillDictionary
+};

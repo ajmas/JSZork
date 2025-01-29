@@ -146,7 +146,7 @@ const ObjectStrings = {
     SPIRITS_REVERT: "The tension of this ceremony is broken, and the wraiths, amused but shaken at "
         + "your clumsy attempt, resume their hideous jeering.",
     WATER_DRINK: "Thank you very much. I was rather thirsty (from all this talking, probably).",
-    
+
 
     CYCLOPS_1: "A cyclops, who looks prepared to eat horses (much less mere adventurers), blocks the staircase. "
         + "From his state of health, and the bloodstains on the walls, you gather that he is not very friendly, though he likes people.",
@@ -365,3 +365,5 @@ const ObjectStrings = {
 }
 
 Object.freeze(ObjectStrings);
+
+export default ObjectStrings;
