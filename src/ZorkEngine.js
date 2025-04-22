@@ -3,7 +3,7 @@ import GameState from "./ZState.js";
 import { updateEvents, updateScore, refreshInventories } from './ZUpdate.js';
 import { fillCurrentObjectList } from './ZInput.js';
 import { Location } from './ZConstants.js';
-import { objectList } from './ZSetup.js';
+import { objectList, worldMap } from './ZSetup.js';
 
 class ZorkEngine {
 
@@ -49,7 +49,9 @@ class ZorkEngine {
 
     // const savedGames = new Map();
 
-    startingState = { ...state };
+    const state = new GameState();
+
+    // startingState = { ...state };
 
     const startingObjectList = new Map();
     for (let sourceObject of objectList.values())
@@ -58,9 +60,7 @@ class ZorkEngine {
         startingObjectList.set(obj.name, obj);
     }
 
-    const state ={ }; // ...startingState };
     state.playerLocation = Location.WEST_OF_HOUSE;
-
 
     for (let targetObj of objectList.values()) {
       let sourceObj = startingObjectList.get(targetObj.name);
@@ -71,14 +71,14 @@ class ZorkEngine {
       room.firstVisit = true;
     }
 
-    gameArea.innerText = "";
-    previousInputArea.innerText = "";
+    // gameArea.innerText = "";
+    // previousInputArea.innerText = "";
 
     state.resetInput();
 
     this.state = state;
 
-    updateEvents();
+    updateEvents(state);
     updateScore();
     refreshInventories();
     fillCurrentObjectList();

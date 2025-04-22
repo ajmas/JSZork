@@ -1,4 +1,4 @@
-import { worldMap } from './ZSetup.js';
+import { worldMap, gameItems } from './ZSetup.js';
 
 function updateGame(state)
 {
@@ -1004,7 +1004,7 @@ function updateDeath()
 }
 
 
-function updateActors()
+function updateActors(state)
 {
     cyclops.cyclopsTurn();
     flood.floodTurn();
@@ -1018,19 +1018,19 @@ function updateActors()
     vampireBat.vampireBatTurn();
     swordGlow.swordGlowTurn();
 
-    if (state.playerHitPoints <= 0)
+    if (state.playerHitPoints <= 0) {
         playerDies();
-
+    }
 }
 
 
-function updateEvents()
+function updateEvents(state)
 {
     // CARPET MOVED
     if (state.carpetMoved)
     {
-        carpet.boardString = ObjectStrings.CARPET_SIT_2;
-        carpet.lookUnderString = "There is nothing but dust there.";
+        gameItems.carpet.boardString = ObjectStrings.CARPET_SIT_2;
+        gameItems.carpet.lookUnderString = "There is nothing but dust there.";
 
         trapDoor.location = Location.LIVING_ROOM;
         if (!trapDoor.altLocations.has(Location.CELLAR))
@@ -1041,8 +1041,8 @@ function updateEvents()
 
     else
     {
-        carpet.boardString = ObjectStrings.CARPET_SIT_1;
-        carpet.lookUnderString = ObjectStrings.CARPET_LOOK_UNDER;
+        gameItems.carpet.boardString = ObjectStrings.CARPET_SIT_1;
+        gameItems.carpet.lookUnderString = ObjectStrings.CARPET_LOOK_UNDER;
 
         trapDoor.location = Location.NULL_LOCATION;
         trapDoor.altLocations.clear();
